@@ -1,4 +1,4 @@
-name: C/C++ CI
+name: libutil-CI
 
 on:
   push:
@@ -8,9 +8,14 @@ on:
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
-
     steps:
     - name: run-cmake
     - uses: lukka/run-cmake@v2.5
+    - run: make build
+  tests:
+    needs: [build]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Unit-tests
+      - run: make test
